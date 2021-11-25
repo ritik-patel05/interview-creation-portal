@@ -22,6 +22,6 @@ const interviewSchema = new Schema(
   { timestamps: true }
 );
 
-const User = mongoose.model("Interview", interviewSchema);
+const Interview = mongoose.model("Interview", interviewSchema);
 
 module.exports = Interview;
