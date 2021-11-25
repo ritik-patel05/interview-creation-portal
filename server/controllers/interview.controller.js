@@ -52,7 +52,7 @@ const addInterview = async (req, res) => {
       })
       .lean()
       .exec();
-    
+
     // Compare time with all previous meetings of each user.
     for (let user of users) {
       user?.interviewsScheduled.forEach((interview) => {
@@ -68,30 +68,29 @@ const addInterview = async (req, res) => {
 
     const userIds = [];
     for (let user of users) {
-        userIds.push(user._id);
+      userIds.push(user._id);
     }
 
     // add new interview
     let interview = new Interview({
-        startTime,
-        endTime,
-        usersInvited: userIds,
+      startTime,
+      endTime,
+      usersInvited: userIds,
     });
 
     interview = await interview.save();
-    
+
     // add this interview to all users
     for (let user of users) {
-        await User.updateOne(
-            { _id: user._id },
-            { $push: { interviewsScheduled: interview._id } }
-        );
+      await User.updateOne(
+        { _id: user._id },
+        { $push: { interviewsScheduled: interview._id } }
+      );
     }
 
     return res.status(201).json({
-        message: "Interview added!",
-    })
-
+      message: "Interview added!",
+    });
   } catch (err) {
     return res.status(500).json({
       message: "Internal server error",
@@ -126,4 +125,9 @@ const updateInterviewDetails = async (req, res) => {
   }
 };
 
-module.exports = { addInterview, getUpcomingInterviews, getInterviewDetials, updateInterviewDetails };
+module.exports = {
+  addInterview,
+  getUpcomingInterviews,
+  getInterviewDetials,
+  updateInterviewDetails,
+};
