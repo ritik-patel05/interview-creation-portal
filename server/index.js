@@ -5,6 +5,8 @@ const cors = require("cors");
 const initializeDBConnection = require("./config/db.connect");
 const errorHandlerRoute = require("./middlewares/errorHandler");
 const notFoundHandlerRoute = require("./middlewares/routeHandler");
+const interviewRouter = require("./routers/interview.router");
+
 const constants = require("./config/constant");
 
 const app = express();
@@ -25,6 +27,7 @@ app.use(
 initializeDBConnection();
 
 // Routes
+app.use("/interviews", interviewRouter);
 
 if (constants.general.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
