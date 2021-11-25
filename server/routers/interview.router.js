@@ -4,7 +4,7 @@ const {
   getUpcomingInterviews,
   getInterviewDetials,
   updateInterviewDetails,
-} = require("../controllers/quiz.controller");
+} = require("../controllers/interview.controller");
 
 const router = express.Router();
 
