@@ -25,6 +25,10 @@ body {
   @apply px-4 py-2 shadow;
 }
 
+.w-fix {
+  width: 200px;
+}
+
 :focus,
 button:focus,
 .btn:focus,

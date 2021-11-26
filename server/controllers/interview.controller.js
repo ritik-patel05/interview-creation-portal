@@ -89,14 +89,18 @@ const addInterview = asyncHandler(async (req, res) => {
   });
 });
 
-const getUpcomingInterviews = async (req, res) => {
-  try {
-  } catch (err) {
-    return res.status(500).json({
-      message: "Internal server error.",
-    });
-  }
-};
+const getUpcomingInterviews = asyncHandler(async (req, res) => {
+  let interviews = await Interview.find({ startTime: { $gte: new Date() } })
+    .lean()
+    .exec();
+
+  // return empty array, if there are no upcoming interviews
+  if (Object.keys(interviews).length === 0) interviews = [];
+
+  res.status(200).json({
+    interviews,
+  });
+});
 
 const getInterviewDetials = async (req, res) => {
   try {
