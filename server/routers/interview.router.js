@@ -2,7 +2,7 @@ const express = require("express");
 const {
   addInterview,
   getUpcomingInterviews,
-  getInterviewDetials,
+  getInterviewById,
   updateInterviewDetails,
 } = require("../controllers/interview.controller");
 
@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.route("/").post(addInterview);
 router.route("/upcoming").get(getUpcomingInterviews);
-router.route("/:interviewId").get(getInterviewDetials);
+router.route("/:interviewId").get(getInterviewById);
 router.route("/:interviewId").put(updateInterviewDetails);
 
 module.exports = router;

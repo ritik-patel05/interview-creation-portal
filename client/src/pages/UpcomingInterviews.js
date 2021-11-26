@@ -3,9 +3,8 @@ import Moment from "react-moment";
 import { Link } from "react-router-dom";
 
 const UpcomingInterviews = () => {
-
   const { status, data, error } = useGetUpcomingInterviews();
-  
+
   return (
     <>
       {status === "loading" && <div>Loading...</div>}

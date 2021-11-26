@@ -102,14 +102,19 @@ const getUpcomingInterviews = asyncHandler(async (req, res) => {
   });
 });
 
-const getInterviewDetials = async (req, res) => {
-  try {
-  } catch (err) {
-    return res.status(500).json({
-      message: "Internal server error.",
-    });
-  }
-};
+const getInterviewById = asyncHandler(async (req, res) => {
+
+  const { interviewId } = req.params;
+
+  const interview = await Interview.findById(interviewId).lean().exec();
+
+  if (!interview) {
+    res.status(404)
+    throw new Error('Interview not found')
+  } 
+    
+  res.status(200).json({interview});
+});
 
 const updateInterviewDetails = async (req, res) => {
   try {
@@ -123,6 +128,6 @@ const updateInterviewDetails = async (req, res) => {
 module.exports = {
   addInterview,
   getUpcomingInterviews,
-  getInterviewDetials,
+  getInterviewById,
   updateInterviewDetails,
 };
