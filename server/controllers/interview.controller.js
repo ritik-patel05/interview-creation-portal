@@ -170,7 +170,7 @@ const updateInterviewDetails = asyncHandler(async (req, res) => {
   for (let user of users) {
     user?.interviewsScheduled.forEach((interview) => {
       if (
-        interview._id !== interviewId &&
+        interview._id.toString() !== interviewId &&
         isOverlaps(interview.startTime, interview.endTime, startTime, endTime)
       ) {
         res.status(400);
