@@ -103,27 +103,129 @@ const getUpcomingInterviews = asyncHandler(async (req, res) => {
 });
 
 const getInterviewById = asyncHandler(async (req, res) => {
-
   const { interviewId } = req.params;
 
-  const interview = await Interview.findById(interviewId).lean().exec();
+  const interview = await Interview.findById(interviewId)
+    .populate({ path: "usersInvited", model: "User", select: "email -_id" })
+    .lean()
+    .exec();
 
   if (!interview) {
-    res.status(404)
-    throw new Error('Interview not found')
-  } 
-    
-  res.status(200).json({interview});
+    res.status(404);
+    throw new Error("Interview not found");
+  }
+
+  res.status(200).json({ interview });
 });
 
-const updateInterviewDetails = async (req, res) => {
-  try {
-  } catch (err) {
-    return res.status(500).json({
-      message: "Internal server error.",
+const updateInterviewDetails = asyncHandler(async (req, res) => {
+  const { interviewId } = req.params;
+
+  let { startTime, endTime, usersInvited } = req.body;
+
+  console.log(req.body);
+  if (!startTime) {
+    res.status(400);
+    throw new Error("startTime is not valid");
+  }
+  if (!endTime) {
+    res.status(400);
+    throw new Error("endTime is not valid");
+  }
+  if (!usersInvited) {
+    res.status(400);
+    throw new Error("usersInvited is not valid");
+  }
+
+  // validations
+  startTime = new Date(startTime);
+  endTime = new Date(endTime);
+
+  if (endTime < startTime) {
+    res.status(400);
+    throw new Error("endTime cannot be before startTime");
+  }
+
+  if (startTime < Date.now()) {
+    res.status(400);
+    throw new Error("startTime cannot be before current time");
+  }
+
+  if (usersInvited.length <= 1) {
+    res.status(400);
+    throw new Error("Total users invited should be atleast ");
+  }
+
+  const users = await User.find({ email: { $in: usersInvited } })
+    .populate({
+      path: "interviewsScheduled",
+      model: "Interview",
+      select: "startTime endTime",
+    })
+    .lean()
+    .exec();
+
+  // Compare time with all previous meetings of each user.
+  // except, current interview.
+  for (let user of users) {
+    user?.interviewsScheduled.forEach((interview) => {
+      if (
+        interview._id !== interviewId &&
+        isOverlaps(interview.startTime, interview.endTime, startTime, endTime)
+      ) {
+        res.status(400);
+        throw new Error(
+          `User, ${user.email} is already having an interview scheduled at this time. Please select another time.`
+        );
+      }
     });
   }
-};
+
+  // remove this interviewId from users which are no longer participants.
+  const oldInterview = await Interview.findById(interviewId)
+    .populate({ path: "usersInvited", model: "User", select: "email" })
+    .select("usersInvited")
+    .lean()
+    .exec();
+  const { usersInvited: oldUsersInvited } = oldInterview;
+  console.log(oldInterview, oldUsersInvited);
+
+  oldUsersInvited.forEach(async (user) => {
+    if (!usersInvited.includes(user.email)) {
+      const updatedUser = await User.updateOne(
+        { _id: user._id },
+        { $pull: { interviewsScheduled: interviewId } },
+        {new: true}
+      );
+      console.log(user.email);
+      console.log(updatedUser);
+    }
+  });
+
+  // add this interviewId to users
+  usersInvited.forEach(async (userEmail) => {
+    await User.updateOne(
+      { email: userEmail, "interviewsScheduled": { $ne: interviewId } },
+      { $addToSet: { interviewsScheduled: interviewId } }
+    );
+  });
+
+  const userIds = [];
+  for (let user of users) {
+    userIds.push(user._id);
+  }
+
+  console.log(userIds);
+  // update interview
+  await Interview.updateOne(
+    { _id: interviewId },
+    { startTime, endTime, usersInvited: userIds }
+  );
+
+  res.status(200).json({
+    message: "Successfully updated.",
+  });
+});
 
 module.exports = {
   addInterview,
