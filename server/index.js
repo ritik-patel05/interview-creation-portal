@@ -4,9 +4,10 @@ const compression = require("compression");
 const cors = require("cors");
 const initializeDBConnection = require("./config/db.connect");
 const errorHandlerRoute = require("./middlewares/errorHandler");
-const notFoundHandlerRoute = require("./middlewares/routeHandler");
 const interviewRouter = require("./routers/interview.router");
+const userRouter = require("./routers/user.router");
 
+const importData = require("./seeder");
 const constants = require("./config/constant");
 
 const app = express();
@@ -26,8 +27,12 @@ app.use(
 // Connect to Database.
 initializeDBConnection();
 
+// Prefill dummy users
+importData();
+
 // Routes
-app.use("/interviews", interviewRouter);
+app.use("/api/interviews", interviewRouter);
+app.use("/api/users", userRouter);
 
 if (constants.general.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
@@ -43,9 +48,9 @@ if (constants.general.NODE_ENV === "production") {
 }
 
 // Not found route Middleware
-app.use(notFoundHandlerRoute);
+app.use(errorHandlerRoute.notFound);
 // Error Handler Route Middleware
-app.use(errorHandlerRoute);
+app.use(errorHandlerRoute.errorHandler);
 
 app.listen(constants.general.PORT, () => {
   console.log("Backend Server is running.");
