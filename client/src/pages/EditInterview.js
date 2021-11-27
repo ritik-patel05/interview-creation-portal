@@ -8,8 +8,10 @@ import axios from "axios";
 
 import useGetAllUsers from "../hooks/useGetAllUsers";
 import useGetInterviewDetails from "../hooks/useGetInterviewDetails";
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const EditInterview = () => {
+  useDocumentTitle("Edit Interview Details");
   const { interviewId } = useParams();
   const {
     status: getInterviewStatus,

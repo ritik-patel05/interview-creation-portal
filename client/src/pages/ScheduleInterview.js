@@ -1,11 +1,15 @@
-import useGetAllUsers from "../hooks/useGetAllUsers";
 import Select from "react-select";
 import moment from "moment";
 import axios from "axios";
 import makeAnimated from "react-select/animated";
 import { useState } from "react";
 
+import useGetAllUsers from "../hooks/useGetAllUsers";
+import useDocumentTitle from '../hooks/useDocumentTitle';
+
+
 const ScheduleInterview = () => {
+  useDocumentTitle("Schedule Interview");
   const {
     status: getUsersStatus,
     data: getUsersData,
