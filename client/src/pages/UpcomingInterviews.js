@@ -8,15 +8,15 @@ const UpcomingInterviews = () => {
   return (
     <main className="max-w-3xl mx-auto px-4 sm:px-6">
       <div className="pt-32 pb-12">
-      {status === "loading" && <div>Loading...</div>}
-      {status === "error" && <div>Error fetching upcoming interviews</div>}
-      {status === "success" && (
+        {status === "loading" && <div>Loading...</div>}
+        {status === "error" && <div>Error fetching upcoming interviews</div>}
+        {status === "success" && (
           <>
             <h2 className="text-2xl mb-4 font-bold text-center">
               Upcoming Interviews
             </h2>
             {data.interviews.map(({ startTime, endTime, _id }) => (
-              <div className="flex flex-col p-4 bg-indigo-200 rounded-md m-4">
+              <div className="flex flex-col p-4 border-4 rounded-md m-4">
                 <div>Id: {_id} </div>
                 <div>
                   Date: <Moment format="DD-MM-YYYY">{endTime}</Moment>
@@ -31,14 +31,14 @@ const UpcomingInterviews = () => {
                 </div>
                 <Link
                   to={`/edit/${_id}`}
-                  className="btn-sm w-fix mx-auto bg-red-400"
+                  className="btn-sm w-fix mx-auto bg-blue-400 text-white"
                 >
                   Edit
                 </Link>
               </div>
             ))}
           </>
-      )}
+        )}
       </div>
     </main>
   );

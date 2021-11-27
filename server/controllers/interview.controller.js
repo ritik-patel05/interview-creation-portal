@@ -88,11 +88,20 @@ const addInterview = asyncHandler(async (req, res) => {
   }
 
   // Send mails
-  usersInvited.forEach(userMail => {
-    emailSender({email: userMail, 
-      subject: `ICP - Interview @ ${moment(startTime).format("DD-MM-YYYY")}, ${moment(startTime).format("hh:mm A")} - ${moment(endTime).format("hh:mm A")}`,
-      body: `Hi, The Interview is scheduled on ${moment(startTime).format("DD-MM-YYYY")}, Time: ${moment(startTime).format("hh:mm A")} - ${moment(endTime).format("hh:mm A")}`,
-    })
+  usersInvited.forEach((userMail) => {
+    emailSender({
+      email: userMail,
+      subject: `ICP - Interview @ ${moment(startTime).format(
+        "DD-MM-YYYY"
+      )}, ${moment(startTime).format("hh:mm A")} - ${moment(endTime).format(
+        "hh:mm A"
+      )}`,
+      body: `Hi, The Interview is scheduled on ${moment(startTime).format(
+        "DD-MM-YYYY"
+      )}, Time: ${moment(startTime).format("hh:mm A")} - ${moment(
+        endTime
+      ).format("hh:mm A")}`,
+    });
   });
 
   res.status(201).json({
@@ -206,7 +215,7 @@ const updateInterviewDetails = asyncHandler(async (req, res) => {
       const updatedUser = await User.updateOne(
         { _id: user._id },
         { $pull: { interviewsScheduled: interviewId } },
-        {new: true}
+        { new: true }
       );
       console.log(user.email);
       console.log(updatedUser);
@@ -216,7 +225,7 @@ const updateInterviewDetails = asyncHandler(async (req, res) => {
   // add this interviewId to users
   usersInvited.forEach(async (userEmail) => {
     await User.updateOne(
-      { email: userEmail, "interviewsScheduled": { $ne: interviewId } },
+      { email: userEmail, interviewsScheduled: { $ne: interviewId } },
       { $addToSet: { interviewsScheduled: interviewId } }
     );
   });
@@ -234,11 +243,20 @@ const updateInterviewDetails = asyncHandler(async (req, res) => {
   );
 
   // Send mails
-  usersInvited.forEach(userMail => {
-    emailSender({email: userMail, 
-      subject: `UPDATED: ICP - Interview @ ${moment(startTime).format("DD-MM-YYYY")}, ${moment(startTime).format("hh:mm A")} - ${moment(endTime).format("hh:mm A")}`,
-      body: `Hi, The updated Interview is scheduled on ${moment(startTime).format("DD-MM-YYYY")}, Time: ${moment(startTime).format("hh:mm A")} - ${moment(endTime).format("hh:mm A")}`,
-    })
+  usersInvited.forEach((userMail) => {
+    emailSender({
+      email: userMail,
+      subject: `UPDATED: ICP - Interview @ ${moment(startTime).format(
+        "DD-MM-YYYY"
+      )}, ${moment(startTime).format("hh:mm A")} - ${moment(endTime).format(
+        "hh:mm A"
+      )}`,
+      body: `Hi, The updated Interview is scheduled on ${moment(
+        startTime
+      ).format("DD-MM-YYYY")}, Time: ${moment(startTime).format(
+        "hh:mm A"
+      )} - ${moment(endTime).format("hh:mm A")}`,
+    });
   });
 
   res.status(200).json({

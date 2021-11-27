@@ -11,5 +11,5 @@ module.exports = {
   auth: {
     EMAIL: process.env.EMAIL,
     PASSWORD: process.env.PASSWORD,
-  }
+  },
 };

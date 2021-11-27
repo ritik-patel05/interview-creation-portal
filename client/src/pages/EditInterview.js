@@ -3,8 +3,8 @@ import Moment from "react-moment";
 import makeAnimated from "react-select/animated";
 import Select from "react-select";
 import { useState } from "react";
-import moment from 'moment';
-import axios from 'axios';
+import moment from "moment";
+import axios from "axios";
 
 import useGetAllUsers from "../hooks/useGetAllUsers";
 import useGetInterviewDetails from "../hooks/useGetInterviewDetails";
