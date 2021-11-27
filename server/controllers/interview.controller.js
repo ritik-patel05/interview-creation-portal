@@ -80,7 +80,7 @@ const addInterview = asyncHandler(async (req, res) => {
   };
 
   if (req.file) {
-    newInterview.resume = url + '/public/' + req.file.filename
+    newInterview.resume = url + '/public/resumes/' + req.file.filename
   }
 
   console.log(newInterview);

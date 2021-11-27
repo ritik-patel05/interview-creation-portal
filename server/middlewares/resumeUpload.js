@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 //Configuration for Multer
 const multerStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, "./client/public");
+      cb(null, "./client/public/resumes");
     },
     filename: (req, file, cb) => {
         const fileName = file.originalname.toLowerCase().split(' ').join('-');
