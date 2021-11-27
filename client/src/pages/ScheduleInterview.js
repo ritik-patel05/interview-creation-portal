@@ -3,6 +3,7 @@ import moment from "moment";
 import axios from "axios";
 import makeAnimated from "react-select/animated";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import useGetAllUsers from "../hooks/useGetAllUsers";
 import useDocumentTitle from '../hooks/useDocumentTitle';
@@ -10,6 +11,9 @@ import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const ScheduleInterview = () => {
   useDocumentTitle("Schedule Interview");
+
+  const navigate = useNavigate();
+
   const {
     status: getUsersStatus,
     data: getUsersData,
@@ -62,6 +66,7 @@ const ScheduleInterview = () => {
       .then((res) => {
         setIsFormSubmitting(false);
         alert("Interview was successfully added.");
+        navigate("/upcoming");
       })
       .catch((error) => {
         setIsFormSubmitting(false);

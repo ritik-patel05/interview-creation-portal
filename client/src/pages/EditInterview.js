@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Moment from "react-moment";
 import makeAnimated from "react-select/animated";
 import Select from "react-select";
@@ -12,6 +12,9 @@ import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const EditInterview = () => {
   useDocumentTitle("Edit Interview Details");
+
+  const navigate = useNavigate();
+
   const { interviewId } = useParams();
   const {
     status: getInterviewStatus,
@@ -70,6 +73,7 @@ const EditInterview = () => {
       .then((res) => {
         setIsFormSubmitting(false);
         alert("Interview was successfully updated.");
+        navigate("/upcoming");
       })
       .catch((error) => {
         setIsFormSubmitting(false);

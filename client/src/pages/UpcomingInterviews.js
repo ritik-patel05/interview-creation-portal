@@ -15,7 +15,7 @@ const UpcomingInterviews = () => {
         {status === "error" && <div>Error fetching upcoming interviews</div>}
         {status === "success" && (
           <>
-            <h2 className="text-2xl mb-4 font-bold text-center">
+            <h2 className="text-2xl mb-8 font-bold text-center">
               Upcoming Interviews
             </h2>
             {data.interviews.map(({ startTime, endTime, _id }) => (
