@@ -11,6 +11,10 @@ const users = [
     name: "Ritik Patel - 3",
     email: "ritikpatel05121999@gmail.com",
   },
+  {
+    name: "Joydeep",
+    email: "joydeep@scaler.com",
+  },
 ];
 
 module.exports = users;

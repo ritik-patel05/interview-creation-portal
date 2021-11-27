@@ -6,12 +6,12 @@ const UpcomingInterviews = () => {
   const { status, data, error } = useGetUpcomingInterviews();
 
   return (
-    <>
+    <main className="max-w-3xl mx-auto px-4 sm:px-6">
+      <div className="pt-32 pb-12">
       {status === "loading" && <div>Loading...</div>}
       {status === "error" && <div>Error fetching upcoming interviews</div>}
       {status === "success" && (
-        <main className="max-w-3xl mx-auto px-4 sm:px-6">
-          <div className="pt-32 pb-12">
+          <>
             <h2 className="text-2xl mb-4 font-bold text-center">
               Upcoming Interviews
             </h2>
@@ -37,10 +37,10 @@ const UpcomingInterviews = () => {
                 </Link>
               </div>
             ))}
-          </div>
-        </main>
+          </>
       )}
-    </>
+      </div>
+    </main>
   );
 };
 
