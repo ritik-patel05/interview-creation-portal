@@ -25,6 +25,7 @@ const ScheduleInterview = () => {
   const [endTime, setEndTime] = useState(new Date());
   const [date, setDate] = useState(new Date());
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
+  const [resume, setResume] = useState("");
 
   const animatedComponents = makeAnimated();
 
@@ -53,11 +54,14 @@ const ScheduleInterview = () => {
       "YYYY-MM-DD HH:mm:ss"
     ).format();
 
-    const interview = {
-      usersInvited: users,
-      startTime: formattedStartTime,
-      endTime: formattedendTime,
-    };
+    const interview = new FormData();
+    interview.append("usersInvited", users);
+    interview.append("startTime", formattedStartTime);
+    interview.append("endTime", formattedendTime);
+
+    if (resume != "") {
+      interview.append("resume", resume);
+    }
 
     console.log(interview);
 
@@ -125,6 +129,9 @@ const ScheduleInterview = () => {
                 required
                 className="rounded-md"
               />
+
+              <label className="mt-4">Upload Resume : </label>
+              <input name="resume" onChange={(e) => setResume(e.target.files[0])} id="resume" type="file" accept="application/pdf" />
 
               <button
                 type="submit"

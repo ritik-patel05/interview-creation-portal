@@ -9,6 +9,7 @@ const emailSender = require("../config/emailSender");
 const addInterview = asyncHandler(async (req, res) => {
   let { startTime, endTime, usersInvited } = req.body;
 
+  usersInvited =  usersInvited.split(",");
   console.log(req.body);
   if (!startTime) {
     res.status(400);
@@ -70,12 +71,21 @@ const addInterview = asyncHandler(async (req, res) => {
     userIds.push(user._id);
   }
 
-  // add new interview
-  let interview = new Interview({
+  const url = req.protocol + '://' + req.get('host');
+
+  const newInterview = {
     startTime,
     endTime,
     usersInvited: userIds,
-  });
+  };
+
+  if (req.file) {
+    newInterview.resume = url + '/public/' + req.file.filename
+  }
+
+  console.log(newInterview);
+  // add new interview
+  let interview = new Interview(newInterview);
 
   interview = await interview.save();
 
