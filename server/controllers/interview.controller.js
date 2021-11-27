@@ -9,8 +9,8 @@ const emailSender = require("../config/emailSender");
 const addInterview = asyncHandler(async (req, res) => {
   let { startTime, endTime, usersInvited } = req.body;
 
-  usersInvited =  usersInvited.split(",");
-  console.log(req.body);
+  usersInvited = usersInvited.split(",");
+
   if (!startTime) {
     res.status(400);
     throw new Error("Start Time is not valid");
@@ -71,7 +71,7 @@ const addInterview = asyncHandler(async (req, res) => {
     userIds.push(user._id);
   }
 
-  const url = req.protocol + '://' + req.get('host');
+  const url = req.protocol + "://" + req.get("host");
 
   const newInterview = {
     startTime,
@@ -80,10 +80,9 @@ const addInterview = asyncHandler(async (req, res) => {
   };
 
   if (req.file) {
-    newInterview.resume = url + '/public/resumes/' + req.file.filename
+    newInterview.resume = url + "/public/resumes/" + req.file.filename;
   }
 
-  console.log(newInterview);
   // add new interview
   let interview = new Interview(newInterview);
 
@@ -153,7 +152,6 @@ const updateInterviewDetails = asyncHandler(async (req, res) => {
 
   let { startTime, endTime, usersInvited } = req.body;
 
-  console.log(req.body);
   if (!startTime) {
     res.status(400);
     throw new Error("Start Time is not valid");
@@ -218,7 +216,6 @@ const updateInterviewDetails = asyncHandler(async (req, res) => {
     .lean()
     .exec();
   const { usersInvited: oldUsersInvited } = oldInterview;
-  console.log(oldInterview, oldUsersInvited);
 
   oldUsersInvited.forEach(async (user) => {
     if (!usersInvited.includes(user.email)) {
@@ -227,8 +224,6 @@ const updateInterviewDetails = asyncHandler(async (req, res) => {
         { $pull: { interviewsScheduled: interviewId } },
         { new: true }
       );
-      console.log(user.email);
-      console.log(updatedUser);
     }
   });
 
@@ -245,7 +240,6 @@ const updateInterviewDetails = asyncHandler(async (req, res) => {
     userIds.push(user._id);
   }
 
-  console.log(userIds);
   // update interview
   await Interview.updateOne(
     { _id: interviewId },

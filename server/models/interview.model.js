@@ -20,7 +20,7 @@ const interviewSchema = new Schema(
     ],
     resume: {
       type: String,
-    }
+    },
   },
   { timestamps: true }
 );

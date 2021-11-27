@@ -8,7 +8,7 @@ import axios from "axios";
 
 import useGetAllUsers from "../hooks/useGetAllUsers";
 import useGetInterviewDetails from "../hooks/useGetInterviewDetails";
-import useDocumentTitle from '../hooks/useDocumentTitle';
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const EditInterview = () => {
   useDocumentTitle("Edit Interview Details");
@@ -66,8 +66,6 @@ const EditInterview = () => {
       endTime: formattedendTime,
     };
 
-    console.log(interview);
-
     axios
       .put(`/api/interviews/${interviewId}`, interview)
       .then((res) => {
@@ -77,7 +75,6 @@ const EditInterview = () => {
       })
       .catch((error) => {
         setIsFormSubmitting(false);
-        console.log(error.response);
         alert(error.response.data.message);
       });
   };

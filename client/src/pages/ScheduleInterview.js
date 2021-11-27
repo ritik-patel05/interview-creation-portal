@@ -6,8 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import useGetAllUsers from "../hooks/useGetAllUsers";
-import useDocumentTitle from '../hooks/useDocumentTitle';
-
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const ScheduleInterview = () => {
   useDocumentTitle("Schedule Interview");
@@ -30,7 +29,6 @@ const ScheduleInterview = () => {
   const animatedComponents = makeAnimated();
 
   const getParticipants = () => {
-    console.log(getUsersData);
     const users = [];
     getUsersData?.users.forEach((user) => {
       users.push({ label: user.email, value: user.email });
@@ -62,8 +60,6 @@ const ScheduleInterview = () => {
     if (resume != "") {
       interview.append("resume", resume);
     }
-
-    console.log(interview);
 
     axios
       .post("/api/interviews/", interview)
@@ -131,7 +127,13 @@ const ScheduleInterview = () => {
               />
 
               <label className="mt-4">Upload Resume : </label>
-              <input name="resume" onChange={(e) => setResume(e.target.files[0])} id="resume" type="file" accept="application/pdf" />
+              <input
+                name="resume"
+                onChange={(e) => setResume(e.target.files[0])}
+                id="resume"
+                type="file"
+                accept="application/pdf"
+              />
 
               <button
                 type="submit"

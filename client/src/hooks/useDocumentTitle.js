@@ -8,7 +8,8 @@ const useDocumentTitle = (title) => {
   }, [title]);
 
   useEffect(() => {
-    return () => { // runs on unmount
+    return () => {
+      // runs on unmount
       document.title = defaultTitle;
     };
   }, []);
