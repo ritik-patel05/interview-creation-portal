@@ -12,11 +12,11 @@ const addInterview = asyncHandler(async (req, res) => {
   console.log(req.body);
   if (!startTime) {
     res.status(400);
-    throw new Error("startTime is not valid");
+    throw new Error("Start Time is not valid");
   }
   if (!endTime) {
     res.status(400);
-    throw new Error("endTime is not valid");
+    throw new Error("End Time is not valid");
   }
   if (!usersInvited) {
     res.status(400);
@@ -29,12 +29,12 @@ const addInterview = asyncHandler(async (req, res) => {
 
   if (endTime < startTime) {
     res.status(400);
-    throw new Error("endTime cannot be before startTime");
+    throw new Error("End Time cannot be before Start Time");
   }
 
   if (startTime < Date.now()) {
     res.status(400);
-    throw new Error("startTime cannot be before current time");
+    throw new Error("Start Time cannot be before current time");
   }
 
   if (usersInvited.length <= 1) {
@@ -146,11 +146,11 @@ const updateInterviewDetails = asyncHandler(async (req, res) => {
   console.log(req.body);
   if (!startTime) {
     res.status(400);
-    throw new Error("startTime is not valid");
+    throw new Error("Start Time is not valid");
   }
   if (!endTime) {
     res.status(400);
-    throw new Error("endTime is not valid");
+    throw new Error("End Time is not valid");
   }
   if (!usersInvited) {
     res.status(400);
@@ -163,12 +163,12 @@ const updateInterviewDetails = asyncHandler(async (req, res) => {
 
   if (endTime < startTime) {
     res.status(400);
-    throw new Error("endTime cannot be before startTime");
+    throw new Error("End Time cannot be before Start Time");
   }
 
   if (startTime < Date.now()) {
     res.status(400);
-    throw new Error("startTime cannot be before current time");
+    throw new Error("Start Time cannot be before current time");
   }
 
   if (usersInvited.length <= 1) {

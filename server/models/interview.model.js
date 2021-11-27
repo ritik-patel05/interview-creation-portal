@@ -18,6 +18,9 @@ const interviewSchema = new Schema(
         ref: "User",
       },
     ],
+    resume: {
+      type: String,
+    }
   },
   { timestamps: true }
 );
