@@ -67,7 +67,7 @@ const EditInterview = () => {
       .put(`api/interviews/${interviewId}`, interview)
       .then((res) => {
         setIsFormSubmitting(false);
-        alert("Interview was successfully added.");
+        alert("Interview was successfully updated.");
       })
       .catch((error) => {
         setIsFormSubmitting(false);
