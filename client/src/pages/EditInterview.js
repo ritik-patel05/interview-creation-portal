@@ -64,7 +64,7 @@ const EditInterview = () => {
     console.log(interview);
 
     axios
-      .put(`api/interviews/${interviewId}`, interview)
+      .put(`/api/interviews/${interviewId}`, interview)
       .then((res) => {
         setIsFormSubmitting(false);
         alert("Interview was successfully updated.");

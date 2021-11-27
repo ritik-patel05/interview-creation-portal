@@ -54,7 +54,7 @@ const ScheduleInterview = () => {
     console.log(interview);
 
     axios
-      .post("api/interviews/", interview)
+      .post("/api/interviews/", interview)
       .then((res) => {
         setIsFormSubmitting(false);
         alert("Interview was successfully added.");
