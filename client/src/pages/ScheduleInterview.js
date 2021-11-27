@@ -73,9 +73,8 @@ const ScheduleInterview = () => {
     <main className="max-w-3xl mx-auto px-4 sm:px-6">
       <div className="pt-32 pb-12">
         <div className="flex flex-col">
-          <h2 className="text-xl text-center font-medium">
-            {" "}
-            Schedule A New Interview{" "}
+          <h2 className="text-xl text-center font-medium mb-4">
+            Schedule A New Interview
           </h2>
           {getUsersStatus === "error" && <div> Error fetching all users. </div>}
           {getUsersStatus === "loading" && <div> Loading... </div>}
@@ -124,11 +123,10 @@ const ScheduleInterview = () => {
 
               <button
                 type="submit"
-                className="btn mx-auto"
+                className="btn mx-auto mt-6 bg-blue-500 text-white"
                 disabled={isFormSubmitting}
               >
-                {" "}
-                {isFormSubmitting ? "Submitting..." : "Submit"}{" "}
+                {isFormSubmitting ? "Submitting..." : "Submit"}
               </button>
             </form>
           )}

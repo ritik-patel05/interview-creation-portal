@@ -90,26 +90,24 @@ const EditInterview = () => {
         {getInterviewStatus === "success" && (
           <>
             <h2 className="text-center text-xl font-bold mb-4">
-              {" "}
-              Interview Details{" "}
+              Interview Details
             </h2>
             <div className="flex flex-col border-2 rounded-md p-4">
               <div>
-                {" "}
-                Date:{" "}
+                Date:
                 <Moment format="DD-MM-YYYY">
                   {getInterviewData.interview.endTime}
-                </Moment>{" "}
+                </Moment>
               </div>
               <div className="grid grid-cols-2 mb-2">
                 <div>
-                  Start Time:{" "}
+                  Start Time:
                   <Moment format="hh:mm A">
                     {getInterviewData.interview.startTime}
                   </Moment>
                 </div>
                 <div>
-                  End Time:{" "}
+                  End Time:
                   <Moment format="hh:mm A">
                     {getInterviewData.interview.endTime}
                   </Moment>
@@ -121,7 +119,7 @@ const EditInterview = () => {
                   return <li key={user.email}>{user.email}</li>;
                 })}
               </ul>
-            </div>{" "}
+            </div>
           </>
         )}
         <div className="mt-4">
@@ -132,8 +130,7 @@ const EditInterview = () => {
           {getUsersStatus === "success" && (
             <>
               <h2 className="text-center text-xl font-bold mb-4">
-                {" "}
-                Update Interview Details{" "}
+                Update Interview Details
               </h2>
               <form onSubmit={handleFormSubmit} className="flex flex-col">
                 <label>Select Participants : </label>
@@ -179,12 +176,12 @@ const EditInterview = () => {
 
                 <button
                   type="submit"
-                  className="btn mx-auto"
+                  className="btn mx-auto mt-6 bg-blue-500 text-white"
                   disabled={isFormSubmitting}
                 >
                   {isFormSubmitting ? "Submitting..." : "Submit"}
                 </button>
-              </form>{" "}
+              </form>
             </>
           )}
         </div>
