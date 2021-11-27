@@ -14,14 +14,17 @@ const Header = () => {
           <nav className="flex flex-grow justify-end">
             <ul className="flex flex-wrap items-center">
               <li>
-                <Link to="/upcoming" className="cursor-pointer mr-4">
+                <Link
+                  to="/upcoming"
+                  className="cursor-pointer mr-4 btn-sm bg-blue-500 text-white"
+                >
                   Upcoming Interviews
                 </Link>
               </li>
               <li>
                 <Link
                   to="/schedule"
-                  className="bg-blue-500 text-white cursor-pointer btn"
+                  className="bg-blue-500 text-white cursor-pointer btn-sm"
                 >
                   Schedule Interview
                 </Link>{" "}
